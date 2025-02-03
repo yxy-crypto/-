@@ -1,0 +1,55 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">				
+<mapper namespace="com.mapper.WordsMapper">
+    <resultMap id="wordsResultMap" type="Words">
+        <id property="id" column="id"/>
+        <result property="word" column="word"/>
+        <result property="explanation" column="explanation"/>
+        <result property="belong" column="belong"/>
+        <result property="detail" column="detail"/>
+    </resultMap>
+
+ 
+    
+   <!-- <select id="getRandomWordsList" resultType="Words">
+        
+        SELECT * FROM study WHERE belong = #{belong} AND incapable = #{incapable} ORDER BY RAND()  LIMIT #{n}
+    </select>
+    
+     <select id="getRandomWordsList1" resultType="Words">
+        
+        SELECT * FROM study WHERE incapable = #{incapable} ORDER BY RAND() LIMIT #{n}
+    </select>
+     
+      <select id="getRandomWordsList2" resultType="Words">
+        
+        SELECT * FROM study WHERE belong = #{belong}  ORDER BY RAND() LIMIT #{n}
+    </select> --> 
+    
+    
+    <select id="getRandomWordsList" resultType="Words">
+    SELECT * FROM study WHERE belong LIKE CONCAT('%', #{belong}, '%') AND incapable LIKE CONCAT('%', #{incapable}, '%') ORDER BY RAND() LIMIT #{n}
+</select>
+
+<select id="getRandomWordsList1" resultType="Words">
+    SELECT * FROM study WHERE incapable LIKE CONCAT('%', #{incapable}, '%') ORDER BY RAND() LIMIT #{n}
+</select>
+
+<select id="getRandomWordsList2" resultType="Words">
+    SELECT * FROM study WHERE belong LIKE CONCAT('%', #{belong}, '%') ORDER BY RAND() LIMIT #{n}
+</select>
+    
+    
+    
+    
+    
+    
+     <select id="getRandomWordsList3" resultType="Words">
+        
+       SELECT * FROM study  ORDER BY RAND() LIMIT #{n}
+    </select>
+    
+    
+    
+    
+    
+</mapper>

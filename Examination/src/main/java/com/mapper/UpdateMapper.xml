@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.UpdateMapper">
+
+
+  <select id="searchByKeyword" resultType="com.beans.Words">
+        SELECT * FROM study WHERE word LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+    
+    <select id="upsearchByKeyword" resultType="com.beans.Words">
+        SELECT * FROM study WHERE word= #{keyword}
+    </select>
+    
+
+   <update id="updateExplanation">
+    UPDATE study
+    SET explanation =
+    <choose>
+        <when test="additionalExplanation == null or additionalExplanation == ''">
+            #{additionalExplanation}
+        </when>
+        <otherwise>
+            CONCAT(explanation, #{additionalExplanation})
+        </otherwise>
+    </choose>
+    WHERE word = #{word}
+</update>
+
+   
+     <update id="updateDetail">
+    UPDATE study
+    SET detail =
+    <choose>
+        <when test="additionalDetail == null or additionalDetail == ''">
+            #{additionalDetail}
+        </when>
+        <otherwise>
+            CONCAT(detail, #{additionalDetail})
+        </otherwise>
+    </choose>
+    WHERE word = #{word}
+</update> 
+
+<update id="updateBelong">
+   
+     UPDATE study
+    SET belong =#{additionalBelong}
+    
+    WHERE word = #{word}
+    
+    
+</update> 
+
+<update id="updateIncapable">
+    UPDATE study
+    SET incapable = #{additionalIncapable}
+    WHERE word = #{word}
+</update> 
+
+
+</mapper>

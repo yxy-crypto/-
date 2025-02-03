@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Words</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #afb4db;
+            padding: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #5E81E4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            margin: 10px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+        
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #494e8f;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #181d4b;
+        }
+    </style>
+</head>
+<body>
+		<a href="/towriting"><button class="button">写作素材检索</button></a>
+		<a href="/todancishu"><button class="button">单词书所属检索</button></a>
+        <a href="/tosearch"><button class="button">单词信息检索</button></a>
+        <a href="/toupdate"><button class="button">单词信息更新</button></a>
+        <a href="/towords"><button class="button">单词默写测试</button></a>
+        
+    <h1>添加新学单词</h1>
+    
+    <p>Explanation:释义 	detail:用法详情 belong:所属话题incapable:是否正式
+    
+    <form action="#" th:action="@{/add}" method="post">
+    <label for="word">Word:(必填)</label>
+    <input type="text" id="word" name="word" required>
+
+    <label for="explanation">Explanation:(必填)</label>
+    <input type="text" id="explanation" name="explanation" required>
+
+    <label for="detail">Detail:(选填)</label>
+    <input type="text" id="detail" name="detail">
+
+    <label for="belong">Topic:(选填)</label>
+        <select id="belong" name="belong"> 
+            <option value="">-- Select Topic --</option>
+            <option value="daily">日常daily</option>
+            <option value="academic">学术academic</option>
+            <option value="linguistics">语言学linguistics</option>
+            <option value="science">科技science</option>
+            <option value="social">社会social</option>
+            <option value="economy">经济economy</option>
+            <option value="politics">政治politics</option>
+            <option value="history">历史history</option>
+            <option value="literary">文学literary</option>
+            <option value="culture">文化culture</option>
+        </select>
+<label for="incapable">Register:(选填)</label>
+    <select id="incapable" name="incapable">
+        <option value="">-- Select Register --</option>
+            <option value="neutral">礼貌neutral</option>
+            <option value="formal">正式formal</option>
+            <option value="spoken">口语spoken</option>
+            <option value="informal">非正式informal</option>
+            <option value="literary">文学literary</option>
+            <option value="taboo">禁忌语taboo</option>
+            <option value="slang">俚语slang</option>
+            <option value="saying">谚语saying</option>
+            <option value="approving">正面的approving</option>
+            <option value="disapproving">负面的disapproving</option>
+            <option value="humorous">幽默语humorous</option>
+            <option value="offensive">冒犯语offensive</option>
+            <option value="technical">术语technical</option>
+        </select>
+<br>
+    <input type="submit" value="Add">
+    
+    <br>
+</form>
+    
+ 
+    
+</body>
+</html>

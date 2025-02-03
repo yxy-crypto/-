@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ERROR Page</title>
+    <style>
+    body {
+            font-family: Arial, sans-serif;
+            background-color: #A9DAC8;
+            color: #0BAC71;
+  			font-size: 16px;
+			line-height: 1.5;
+  			text-align: center;
+  			margin: 0;
+        }
+        h1 {
+            font-size: 24px;
+            color: #0bac71;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #5E81E4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            margin: 10px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        input[type="text"],
+        button[type="submit"] {
+            padding: 6px 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="text"] {
+            width: 200px;
+            
+        }
+
+        button[type="submit"] {
+            background-color: #5E81E4;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #5E81E4;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color:#C6D1CD;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Error Page</h1>
+    <h2>值重复或空值!</h2>
+      <a href="/todancishu"><button class="button">单词书所属检索</button></a>
+    <a href="/towriting"><button class="button">点我去写作</button></a>
+      <a href="/tosearch"><button class="button">点我去搜索</button></a>
+    <a href="/towords"><button class="button">点我考单词</button></a>
+    <a href="/toadd"><button class="button">点我去录入</button></a>
+	<a href="/toupdate"><button class="button">点我去更新</button></a>
+  
+</body>
+</html>
+

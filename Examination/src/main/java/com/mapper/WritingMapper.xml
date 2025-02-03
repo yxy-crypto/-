@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.WritingMapper">
+    <!-- 功能一：根据form, domain, register查询content和translation -->
+ <!--   <select id="writingsearch" resultType="Writing">
+    
+        <![CDATA[
+            SELECT *
+            FROM writing
+            WHERE form = #{form}
+            AND domain = #{domain}
+            AND register = #{register}
+            ORDER BY content ASC
+        ]]>
+    </select>
+    
+    -->
+    
+    
+    <select id="writingsearch" resultType="Writing">
+    <![CDATA[
+        SELECT *
+        FROM writing
+        WHERE 1=1
+    ]]>
+    <if test="form != null and form != ''">
+        AND form = #{form}
+    </if>
+    <if test="domain != null and domain != ''">
+        AND domain = #{domain}
+    </if>
+    <if test="register != null and register != ''">
+        AND register = #{register}
+    </if>
+    ORDER BY content ASC
+</select>
+    
+
+    <!-- 功能二：查询最近n天内添加的元组 -->
+    <select id="writingrecent" resultType="Writing">
+        <![CDATA[
+            SELECT *
+            FROM writing
+            WHERE time >= NOW() - INTERVAL #{days} DAY
+            ORDER BY content ASC
+        ]]>
+    </select>
+
+    <!-- 功能三：按照正则表达式查询content字段 -->
+    <select id="writingcontentregex" resultType="Writing">
+        <![CDATA[
+            SELECT *
+            FROM writing
+            WHERE content REGEXP #{regex}
+            ORDER BY content ASC
+        ]]>
+    </select>
+
+    <!-- 功能四：按照正则表达式查询explanation字段 -->
+    <select id="writingexplanationregex" resultType="Writing">
+        <![CDATA[
+            SELECT *
+            FROM writing
+            WHERE translation REGEXP #{regex}
+            ORDER BY content ASC
+        ]]>
+    </select>
+
+</mapper>

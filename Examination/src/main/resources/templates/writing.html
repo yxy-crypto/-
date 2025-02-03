@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write Query</title>
+    <style>
+        /* 页面基础布局 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #afb4db;
+            color: #181d4b;
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        #backToTop {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  display: none; /* 初始隐藏 */
+  padding: 10px 20px;
+  background-color: #4CAF50; /* 绿色背景，可自定义 */
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+        h2, h3 {
+            margin-bottom: 20px;
+        }
+
+        /* 左侧功能区样式 */
+        .left-pane {
+            width: 25%;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-right: 2px solid #ddd;
+        }
+
+        .left-pane h2 {
+            color: #333;
+        }
+
+        .left-pane form {
+            margin-bottom: 20px;
+        }
+
+        .left-pane label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .left-pane select, .left-pane input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .left-pane button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .left-pane button:hover {
+            background-color: #45a049;
+        }
+
+        /* 右侧显示区样式 */
+        .right-pane {
+            width: 70%;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #fff;
+        }
+
+        /* 表格样式 */
+        table {
+            margin-top: 30px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #cde6c7;
+            color: #181d4b;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* 按钮样式 */
+        .button {
+            border-radius: 25px;
+            padding: 5px 10px;
+            background-color: #6a6da9;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            margin: 5px;
+        }
+
+        .button:hover {
+            background-color: #494e8f;
+        }
+    </style>
+</head>
+<body>
+
+<div class="left-pane">
+    <h2>写作素材检索</h2>
+    <form action="/writingsearch" method="GET" id="searchForm">
+        <label for="form">Form:</label>
+        <select id="form" name="form">
+        <option value="">-- Select Form --</option>
+            <option value="word">单词word</option>
+            <option value="collocation">习惯/固定搭配collocation</option>
+            <option value="phrasal verb">短语动词phrasal verb</option>
+            <option value="idiom">成语idiom</option>
+            <option value="sentence">句子sentence</option>
+            <option value="proverb">谚语proverb</option>
+            
+
+        </select>
+        <br>
+        <label for="domain">Domain:</label>
+        <select id="domain" name="domain">
+        <option value="">-- Select domain --</option>
+            <option value="daily">日常daily</option>
+            <option value="academic">学术academic</option>
+            <option value="linguistics">语言学linguistics</option>
+            <option value="science">科技science</option>
+            <option value="social">社会social</option>
+            <option value="economy">经济economy</option>
+            <option value="politics">政治politics</option>
+            <option value="history">历史history</option>
+            <option value="literary">文学literary</option>
+            <option value="culture">文化culture</option>
+        </select>
+        <br>
+        <label for="register">Register:</label>
+        <select id="register" name="register">
+        <option value="">-- Select register --</option>
+            <option value="neutral">礼貌neutral</option>
+            <option value="formal">正式formal</option>
+            <option value="spoken">口语spoken</option>
+            <option value="informal">非正式informal</option>
+            <option value="literary">文学literary</option>
+            <option value="taboo">禁忌语taboo</option>
+            <option value="slang">俚语slang</option>
+            <option value="saying">谚语saying</option>
+            <option value="approving">正面的approving</option>
+            <option value="disapproving">负面的disapproving</option>
+            <option value="humorous">幽默语humorous</option>
+            <option value="offensive">冒犯语offensive</option>
+            <option value="technical">术语technical</option>
+        </select>
+        <br>
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>Find by Recent Days</h2>
+    <form action="/writingrecent" method="GET" id="recentForm">
+        <label for="days">Days:</label>
+        <input type="number" id="days" name="days" />
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>Search Content by Regex</h2>
+    <form action="/writingcontentregex" method="GET" id="contentRegexForm">
+        <label for="contentRegex">Regex:</label>
+        <input type="text" id="contentRegex" name="regex" />
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>Search Explanation by Regex</h2>
+    <form action="/writingexplanationregex" method="GET" id="explanationRegexForm">
+        <label for="explanationRegex">Regex:</label>
+        <input type="text" id="explanationRegex" name="regex" />
+        <button type="submit">Search</button>
+    </form>
+<a href="/todancishu"><button class="button">单词书所属检索</button></a>
+    <a href="/tosearch"><button class="button">单词信息检索</button></a>
+    <br>
+    <a href="/toupdate"><button class="button">更新单词信息</button></a>
+    <a href="/toadd"><button class="button">添加新学单词</button></a>
+    <a href="/towords"><button class="button">单词默写测试</button></a>
+</div>
+
+<div class="right-pane">
+    
+    <div id="result"></div>
+    <p>string 精确匹配所有包含string整体的结果， [string] 模糊匹配含有string中任意字符的结果， ^string.* 匹配以string开头的结果， ^[string].* 匹配以string中任意字符开头的结果， .*string$ 匹配以string结尾的结果</p>
+    <!-- 查询结果表格 -->
+    <table id="resultsTable">
+        <tr>
+            <th>Content</th>
+            <th>Translation</th>
+            <th>Form</th>
+            <th>Domain</th>
+            <th>Register</th>
+            <th>ID</th>
+        </tr>
+        <!-- 动态填充结果 -->
+    </table>
+    
+    
+</div>
+<a href="#" id="backToTop">返回顶部</a>
+<script>
+    // 渲染查询结果
+    function renderResults(data) {
+        const table = document.getElementById('resultsTable');
+        table.innerHTML = `
+            <tr>
+                <th>Content</th>
+                <th>Translation</th>
+                <th>Form</th>
+                <th>Domain</th>
+                <th>Register</th>
+                <th>ID</th>
+            </tr>
+        `; // 重置表格内容
+
+        data.forEach(item => {
+            const row = table.insertRow();
+            row.innerHTML = `
+                <td>${item.content}</td>
+                <td>${item.translation}</td>
+                <td>${item.form}</td>
+                <td>${item.domain}</td>
+                <td>${item.register}</td>
+                <td>${item.id}</td>
+            `;
+        });
+    }
+
+    // 按表单提交查询并更新结果
+    function fetchResults(formId, url) {
+        const form = document.getElementById(formId);
+        const formData = new FormData(form);
+        const params = new URLSearchParams(formData).toString();
+        fetch(`${url}?${params}`)
+            .then(response => response.json())
+            .then(data => renderResults(data))
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 监听表单提交
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        fetchResults('searchForm', '/writingsearch');
+    });
+
+    document.getElementById('recentForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        fetchResults('recentForm', '/writingrecent');
+    });
+
+    document.getElementById('contentRegexForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        fetchResults('contentRegexForm', '/writingcontentregex');
+    });
+
+    document.getElementById('explanationRegexForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        fetchResults('explanationRegexForm', '/writingexplanationregex');
+    });
+    
+    window.onscroll = function() {
+    	  var backToTop = document.getElementById("backToTop");
+    	  if (document.documentElement.scrollTop > 100) {
+    	    backToTop.style.display = "block";
+    	  } else {
+    	    backToTop.style.display = "none";
+    	  }
+    	};
+
+    	// 点击按钮回到顶部
+    	document.getElementById('backToTop').addEventListener('click', function() {
+    	  window.scrollTo(0, 0);
+    	}); 
+    
+</script>
+
+</body>
+</html>

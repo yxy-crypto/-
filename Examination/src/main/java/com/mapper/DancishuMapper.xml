@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.DancishuMapper">
+
+  <!--  <select id="searchDancishu" resultType="Dancishu">
+        SELECT *
+        FROM dancishu
+        WHERE 1=1
+        <if test="meaning != null and meaning != ''">
+            AND meaning LIKE CONCAT('%', #{meaning}, '%')
+        </if>
+        <if test="word != null and word != ''">
+            AND word LIKE CONCAT('%', #{word}, '%')
+        </if>
+        <if test="collocation != null and collocation != ''">
+            AND collocation LIKE CONCAT('%', #{collocation}, '%')
+        </if>
+        <if test="belong != null and belong != ''">
+            AND belong LIKE CONCAT('%', #{belong}, '%')
+        </if>
+        ORDER BY word ASC
+    </select> --> 
+    
+    
+    <select id="searchDancishu" resultType="Dancishu">
+    SELECT *
+    FROM dancishu
+    WHERE 1=1
+    <if test="meaning != null and meaning != ''">
+        AND meaning REGEXP #{meaning}
+    </if>
+    <if test="word != null and word != ''">
+        AND word REGEXP #{word}
+    </if>
+    <if test="collocation != null and collocation != ''">
+        AND collocation REGEXP #{collocation}
+    </if>
+    <if test="belong != null and belong != ''">
+        AND belong REGEXP #{belong}
+    </if>
+    ORDER BY word ASC
+</select>
+    
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.SearchMapper">
+
+
+<select id="doublesearch" resultType="Words">
+    <![CDATA[
+        SELECT *
+        FROM study
+        WHERE 1=1
+    ]]>
+    <if test="belong != null and belong != ''">
+        AND belong = #{belong}
+    </if>
+    <if test="incapable != null and incapable != ''">
+        AND incapable = #{incapable}
+    </if>
+    ORDER BY id ASC
+</select>
+
+
+<!-- 功能一：根据belong, incapable查询
+    <select id="doublesearch" resultType="Words">
+    
+        <![CDATA[
+            SELECT *
+            FROM study
+            WHERE belong = #{belong}
+            AND incapable = #{incapable}
+            ORDER BY word ASC
+        ]]>
+    </select> -->
+    
+   
+    <select id="searchc" resultType="Words">
+   <!--       SELECT *
+        FROM study
+        WHERE explanation LIKE CONCAT('%', #{keyword}, '%')-->
+        SELECT *
+    FROM study
+    WHERE explanation REGEXP #{keyword}
+    ORDER BY id ASC
+    </select>
+    
+    
+    <select id="searche" resultType="Words">
+        SELECT *
+        FROM study
+        WHERE word REGEXP #{keyword}
+        ORDER BY id ASC
+    </select>
+    
+    
+     <select id="searchd" resultType="Words">
+        SELECT *
+        FROM study
+        WHERE detail REGEXP #{keyword}
+        ORDER BY id ASC
+    </select>
+    
+    <select id="searchb" resultType="Words">
+        SELECT *
+        FROM study
+        WHERE belong REGEXP #{keyword}
+        ORDER BY id ASC
+    </select>
+    
+    <select id="searchi" resultType="Words">
+        SELECT *
+        FROM study
+        WHERE incapable REGEXP #{keyword}
+        ORDER BY id ASC
+    </select>
+  
+	<select id="searcht" resultType="Words">
+    SELECT *
+    FROM study
+    WHERE create_time >= DATE_SUB(NOW(), INTERVAL #{days} DAY)
+    ORDER BY create_time DESC
+	</select>
+</mapper>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Page</title>
+    <style>
+    body {
+            font-family: Arial, sans-serif;
+            background-color: #afb4db;
+            color: #494e8f;
+  			font-size: 16px;
+			line-height: 1.5;
+  			text-align: center;
+  			margin: 0;
+        }
+        #backToTop {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  display: none; /* 初始隐藏 */
+  padding: 10px 20px;
+  background-color: #4CAF50; /* 绿色背景，可自定义 */
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+        h1 {
+            font-size: 24px;
+            color: #494e8f;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #5E81E4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            margin: 10px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        input[type="text"],
+        button[type="submit"] {
+            padding: 6px 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="text"] {
+            width: 200px;
+            
+        }
+
+        button[type="submit"] {
+            background-color: #5E81E4;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #5E81E4;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color:#C6D1CD;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <h1>单词信息更新</h1>
+      <a href="/towriting"><button class="button">写作素材检索</button></a>
+      <a href="/tosearch"><button class="button">单词信息检索</button></a>
+      <a href="/todancishu"><button class="button">单词书所属检索</button></a>
+      <br>
+    <a href="/towords"><button class="button">单词默写测试</button></a>
+    <a href="/toadd"><button class="button">添加新学单词</button></a>
+    
+
+    <!-- 搜索表单 -->
+    <form action="/updatesearch" method="GET">
+        <label for="keyword">关键词:</label>
+        <input type="text" id="keyword" name="keyword" required>
+        <button type="submit">Search</button>
+    </form>
+    
+
+
+    <!-- 查询结果表格 -->
+    <table>
+        <tr>
+            <th>单词</th>
+            <th>释义</th>
+            <th>更新释义</th>
+            <th>详情</th>
+            <th>更新详情</th>
+            <th>话题</th>
+            <th>更新话题</th>
+            <th>语域</th>
+            <th>更新语域</th>
+        </tr>
+
+        <!-- 使用 Thymeleaf 进行数据绑定 -->
+        <tr th:each="word : ${words}">
+            <td th:text="${word.word}"></td>
+            <td th:text="${word.explanation}"></td>
+            <td>
+                <form action="/updateExplanation" method="POST">
+                    <input type="hidden" name="word" th:value="${word.word}">
+                    <input type="text" name="additionalExplanation" required>
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+            <td th:text="${word.detail}"></td>
+            <td>
+                <form action="/updateDetail" method="POST">
+                    <input type="hidden" name="word" th:value="${word.word}">
+                    <input type="text" name="additionalDetail" required>
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+            
+            <td th:text="${word.belong}"></td>
+            <td>
+                <form action="/updateBelong" method="POST">
+                    <input type="hidden" name="word" th:value="${word.word}">
+                    <select id="word" name="additionalBelong">
+            
+            <option value="daily">日常daily</option>
+            <option value="academic">学术academic</option>
+            <option value="linguistics">语言学linguistics</option>
+            <option value="science">科技science</option>
+            <option value="social">社会social</option>
+            <option value="economy">经济economy</option>
+            <option value="politics">政治politics</option>
+            <option value="history">历史history</option>
+            <option value="literary">文学literary</option>
+            <option value="culture">文化culture</option>
+        </select>
+           <!--          <input type="text" name="additionalBelong" required>--> 
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+            
+            
+            
+            <td th:text="${word.incapable}"></td>
+            <td>
+                <form action="/updateIncapable" method="POST">
+                    <input type="hidden" name="word" th:value="${word.word}">
+                    <select id="word" name="additionalIncapable">
+        
+            <option value="neutral">礼貌neutral</option>
+            <option value="formal">正式formal</option>
+            <option value="spoken">口语spoken</option>
+            <option value="informal">非正式informal</option>
+            <option value="literary">文学literary</option>
+            <option value="taboo">禁忌语taboo</option>
+            <option value="slang">俚语slang</option>
+            <option value="saying">谚语saying</option>
+            <option value="approving">正面的approving</option>
+            <option value="disapproving">负面的disapproving</option>
+            <option value="humorous">幽默语humorous</option>
+            <option value="offensive">冒犯语offensive</option>
+            <option value="technical">术语technical</option>
+        </select>
+                  <!--    <input type="text" name="additionalIncapable" required>-->
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+          
+            
+        </tr>
+    </table>
+    
+    <a href="#" id="backToTop">返回顶部</a>
+    
+    
+    <script >
+    window.onscroll = function() {
+  var backToTop = document.getElementById("backToTop");
+  if (document.documentElement.scrollTop > 100) {
+    backToTop.style.display = "block";
+  } else {
+    backToTop.style.display = "none";
+  }
+};
+
+// 点击按钮回到顶部
+document.getElementById('backToTop').addEventListener('click', function() {
+  window.scrollTo(0, 0);
+});
+    
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

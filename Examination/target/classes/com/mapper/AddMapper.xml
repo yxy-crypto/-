@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.AddMapper">
+
+    <update id="insertWords" parameterType="Words">
+        INSERT INTO study (word, explanation, detail, belong, incapable)
+        VALUES (#{word}, #{explanation}, #{detail}, #{belong}, #{incapable})
+    </update>
+</mapper>
